@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:insert="base :: header"></header>
+    <style>
+
+        .jumbotron {
+            background-color: rgba(255 255 255 0.6);
+        }
+
+    </style>
+</head>
+<body>
+<nav th:replace="base :: navlinks"></nav>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">TestForm</h1>
+        <form action="#" th:action="@{/process_test}" th:object="${test}" method = "post">
+            <input type="hidden" th:field="*{getTestID()}"/>
+            <div class="form-row">
+                <div class="col">
+                    <label >Subject</label>
+                    <input type="text" th:field="*{subject}"  class="form-control" placeholder="Subject"/>
+                    <span th:if="${#fields.hasErrors('subject')}"
+                          th:errors="*{subject}"></span>
+                </div>
+                <div class="col">
+                    <label>Score</label>
+                    <input type="text" th:field="*{score}" class="form-control" placeholder="Score"/>
+                    <span th:if="${#fields.hasErrors('score')}"
+                          th:errors="*{score}"></span>
+                    <br/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class = "col">
+                    <label>Date</label>
+                    <input type="text" th:field="*{date}" class="form-control" placeholder="Date"/>
+                    <span th:if="${#fields.hasErrors('date')}"
+                          th:errors="*{date}"></span>
+                </div>
+                <div class = "col">
+                    <select name="department" th:field="*{student}">
+                        <option th:each="student : ${students}"
+                                th:value="${student.studentId}"
+                                th:text="${student.lastName}">
+
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-success"> Test Score</button>
+        </form>
+
+
+    </div>
+</div>
+
+<footer th:insert="base :: footer"></footer>
+<div th:insert="base :: scripts"></div>
+</body>
+</html>
