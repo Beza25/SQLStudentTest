@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function validateForm() {
+            var x = document.forms["testform"]["subject"].value;
+            if (x == "") {
+                alert("Subject must be filled out");
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+<form name="testform" th:action="@{process_test}" th:object="${test}" onsubmit="return validateForm()" method="post">
+    <input type="hidden" th:field="*{testID}"/>
+    <input type="text" placeholder="subject" th:field="*{subject}" name="subject"/>
+    <input type="text" placeholder="date" th:field="*{date}"/>
+    <input type="text" placeholder="score" th:field="*{score}"/>
+    <select name="student" th:field="*{student}">
+
+        <div th:each="student : ${students}">
+            <option th:value="${student.studentId}" th:text="${student.firstName}"></option>
+        </div>
+    </select>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

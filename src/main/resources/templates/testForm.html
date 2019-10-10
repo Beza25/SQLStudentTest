@@ -16,7 +16,7 @@
     <div class="jumbotron">
         <h1 class="display-4">TestForm</h1>
         <form action="#" th:action="@{/process_test}" th:object="${test}" method = "post">
-            <input type="hidden" th:field="*{getTestID()}"/>
+            <input type="hidden" th:field="*{testID}"/>
             <div class="form-row">
                 <div class="col">
                     <label >Subject</label>
@@ -40,23 +40,40 @@
                           th:errors="*{date}"></span>
                 </div>
                 <div class = "col">
-                    <select name="department" th:field="*{student}">
-                        <option th:each="student : ${students}"
-                                th:value="${student.studentId}"
-                                th:text="${student.lastName}">
 
-                        </option>
-                    </select>
                 </div>
 
             </div>
+            <select th:field="*{student}" name="student" >
 
+                <div th:each="student : ${students}">
+                    <option
+                            th:value="${student.studentId}"
+                            th:text="${student.firstName}">
+
+                    </option>
+                </div>
+            </select>
             <button type="submit" class="btn btn-success"> Test Score</button>
         </form>
-
-
     </div>
 </div>
+
+<!--        <form th:action="@{processScore}" th:object="${test}" method="post">-->
+<!--            <input type="hidden" th:field="*{testid}"/>-->
+
+<!--            <input type="text" placeholder="subject" th:field="*{subject}">-->
+<!--            <input type="text" placeholder="date" th:field="*{date}">-->
+<!--            <input type="text" placeholder="score" th:field="*{score}">-->
+<!--            <select th:field="*{student}" name="student">-->
+
+<!--                <div th:each="student : ${students}">-->
+<!--                    <option th:value="${student.studentid}" th:text="${student.name}"></option>-->
+<!--                </div>-->
+<!--            </select>-->
+<!--            <input type="submit" value="Submit">-->
+<!--        </form>-->
+
 
 <footer th:insert="base :: footer"></footer>
 <div th:insert="base :: scripts"></div>

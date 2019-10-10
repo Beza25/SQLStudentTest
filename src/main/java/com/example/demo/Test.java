@@ -1,23 +1,28 @@
 package com.example.demo;
 
 import com.sun.javafx.beans.IDProperty;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 public class Test {
+    //---- Table ID for Tests---
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long testID;
+    //-----Fields----------
     @NotNull
     private String subject;
     @NotNull
     private String date;
     @NotNull
     private String score;
-
+    //---- Data Relation to Student------
     @ManyToOne
+    @JoinColumn(name="student_id")
     private Student student;
 
     public Test(){}

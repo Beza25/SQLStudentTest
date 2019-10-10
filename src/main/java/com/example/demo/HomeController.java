@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,7 +19,7 @@ public class HomeController {
     public String home(Model model){
         model.addAttribute("students", studentRepository.findAll());
         model.addAttribute("tests", testRepository.findAll());
-        return "index";
+        return "home";
     }
     @RequestMapping("/addStudent")
     public String studentForm(Model model){
@@ -40,13 +38,14 @@ public class HomeController {
     public String addTest(Model model){
         model.addAttribute("students", studentRepository.findAll());
         model.addAttribute("test", new Test());
-        return "testForm";
+//        return "testForm";
+        return "reyhtml";
     }
     @PostMapping("/process_test")
-    public String processTestForm(@Valid Test test, BindingResult result){
-        if(result.hasErrors()){
-            return "testForm";
-        }
+    public String processTestForm(@ModelAttribute Test  test, @RequestParam(name = "student") String student){
+//        if(result.hasErrors()){
+//            return "testForm";
+//        }
         testRepository.save(test);
         return "redirect:/";
     }
